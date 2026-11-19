@@ -1,0 +1,149 @@
+{
+  "info": {
+    "_postman_id": "6608cf61-b0b3-4644-b982-e620216affa5",
+    "name": "ExoApi - CRUD de Projetos",
+    "description": "Testes da atividade 4 (Desenvolvimento de APIs - SENAI). Ajuste a variável base_url para o endereço que aparece no 'dotnet run'.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5038"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Listar projetos (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/projetos",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "projetos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Cadastrar projeto (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/projetos",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "projetos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nomeDoProjeto\": \"Projeto D - Senai FIT\",\n    \"area\": \"Saúde\",\n    \"status\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "3. Buscar projeto por id (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/projetos/4",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "projetos",
+            "4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Atualizar projeto (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/projetos/4",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "projetos",
+            "4"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nomeDoProjeto\": \"Projeto D - Senai Games\",\n    \"area\": \"Entretenimento\",\n    \"status\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "5. Deletar projeto (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/projetos/4",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "projetos",
+            "4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Listar após deletar (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/projetos",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "projetos"
+          ]
+        }
+      }
+    }
+  ]
+}

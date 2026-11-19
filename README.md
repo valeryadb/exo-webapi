@@ -1,16 +1,22 @@
 # Exo.WebApi: API de Projetos da ExoApi
 
-Atividade **SP1 – Atividade 3: Criar estrutura da API com Context e método GET para projetos, teste no navegador** (Desenvolvimento de APIs, SENAI-DF).
+Atividades da UC **Desenvolvimento de APIs** (SENAI-DF):
+- **SP1 – Atividade 3:** estrutura da API com Context e método GET, teste no navegador
+- **SP1 – Atividade 4:** restante do CRUD de projetos, teste no Insomnia
 
-API REST em **ASP.NET Core** com **Entity Framework Core** e **SQL Server** que lista os projetos cadastrados no banco de dados da ExoApi.
+API REST em **ASP.NET Core** com **Entity Framework Core** e **SQL Server** com o CRUD completo dos projetos cadastrados no banco de dados da ExoApi.
 
 ## ✅ Endpoint
 
 | Método | Rota | Descrição | Resposta |
 |---|---|---|---|
 | GET | `/api/projetos` | Lista todos os projetos (id, nome do projeto, área e status) | `200 OK` com JSON |
+| GET | `/api/projetos/{id}` | Busca um projeto pelo id | `200 OK` ou `404 Not Found` |
+| POST | `/api/projetos` | Cadastra um projeto (o id é gerado automaticamente) | `201 Created` |
+| PUT | `/api/projetos/{id}` | Atualiza todas as informações de um projeto | `204 No Content` ou `404 Not Found` |
+| DELETE | `/api/projetos/{id}` | Remove um projeto | `204 No Content` ou `404 Not Found` |
 
-Exemplo de resposta:
+Exemplo de resposta do `GET /api/projetos`:
 ```json
 [
   { "id": 1, "nomeDoProjeto": "Projeto A - Obras BR", "area": "Construção Civil", "status": true },
@@ -18,6 +24,15 @@ Exemplo de resposta:
   { "id": 3, "nomeDoProjeto": "Projeto C - Hackathon Fest", "area": "Eventos", "status": true }
 ]
 ```
+
+Exemplo de corpo (JSON) para `POST` e `PUT`:
+```json
+{ "nomeDoProjeto": "Projeto D - Senai FIT", "area": "Saúde", "status": true }
+```
+
+## 🧪 Testes no Insomnia / Postman
+O arquivo `ExoApi-Insomnia-Postman.json` traz as 6 requisições prontas (listar, cadastrar, buscar por id, atualizar, deletar e listar de novo).
+No Insomnia: **Import > From File** e escolha o arquivo. Ajuste a variável `base_url` para o endereço exibido no `dotnet run`.
 
 ## 📂 Estrutura
 
@@ -37,7 +52,7 @@ Exemplo de resposta:
 dotnet restore
 dotnet run
 ```
-4. No navegador, acesse o endereço exibido no terminal + `/api/projetos` (ex.: `http://localhost:5038/api/projetos`).
+4. No navegador ou no Insomnia, acesse o endereço exibido no terminal + `/api/projetos` (ex.: `http://localhost:5038/api/projetos`).
 
 ## 🛠️ Tecnologias
 C# · ASP.NET Core Web API · Entity Framework Core 6 · SQL Server
