@@ -3,10 +3,13 @@
 Atividades da UC **Desenvolvimento de APIs** (SENAI-DF):
 - **SP1 – Atividade 3:** estrutura da API com Context e método GET, teste no navegador
 - **SP1 – Atividade 4:** restante do CRUD de projetos, teste no Insomnia
+- **SP1 – Atividade 5:** CRUD de usuários
 
-API REST em **ASP.NET Core** com **Entity Framework Core** e **SQL Server** com o CRUD completo dos projetos cadastrados no banco de dados da ExoApi.
+API REST em **ASP.NET Core** com **Entity Framework Core** e **SQL Server** com o CRUD completo de **projetos** e de **usuários** cadastrados no banco de dados da ExoApi.
 
-## ✅ Endpoint
+## ✅ Endpoints
+
+### Projetos
 
 | Método | Rota | Descrição | Resposta |
 |---|---|---|---|
@@ -15,6 +18,15 @@ API REST em **ASP.NET Core** com **Entity Framework Core** e **SQL Server** com 
 | POST | `/api/projetos` | Cadastra um projeto (o id é gerado automaticamente) | `201 Created` |
 | PUT | `/api/projetos/{id}` | Atualiza todas as informações de um projeto | `204 No Content` ou `404 Not Found` |
 | DELETE | `/api/projetos/{id}` | Remove um projeto | `204 No Content` ou `404 Not Found` |
+
+### Usuários
+| Método | Rota | Descrição | Resposta |
+|---|---|---|---|
+| GET | `/api/usuarios` | Lista todos os usuários (id, e-mail e senha) | `200 OK` com JSON |
+| GET | `/api/usuarios/{id}` | Busca um usuário pelo id | `200 OK` ou `404 Not Found` |
+| POST | `/api/usuarios` | Cadastra um usuário | `201 Created` |
+| PUT | `/api/usuarios/{id}` | Atualiza e-mail e senha de um usuário | `204 No Content` ou `404 Not Found` |
+| DELETE | `/api/usuarios/{id}` | Remove um usuário | `204 No Content` ou `404 Not Found` |
 
 Exemplo de resposta do `GET /api/projetos`:
 ```json
@@ -25,13 +37,16 @@ Exemplo de resposta do `GET /api/projetos`:
 ]
 ```
 
-Exemplo de corpo (JSON) para `POST` e `PUT`:
+Exemplos de corpo (JSON) para `POST` e `PUT`:
 ```json
 { "nomeDoProjeto": "Projeto D - Senai FIT", "area": "Saúde", "status": true }
 ```
+```json
+{ "email": "email_tres@sp.br", "senha": "1234" }
+```
 
 ## 🧪 Testes no Insomnia / Postman
-O arquivo `ExoApi-Insomnia-Postman.json` traz as 6 requisições prontas (listar, cadastrar, buscar por id, atualizar, deletar e listar de novo).
+O arquivo `ExoApi-Insomnia-Postman.json` traz as requisições prontas de projetos e de usuários (listar, cadastrar, buscar por id, atualizar, deletar e listar de novo).
 No Insomnia: **Import > From File** e escolha o arquivo. Ajuste a variável `base_url` para o endereço exibido no `dotnet run`.
 
 ## 📂 Estrutura
@@ -39,9 +54,9 @@ No Insomnia: **Import > From File** e escolha o arquivo. Ajuste a variável `bas
 | Pasta | Classe | Função |
 |---|---|---|
 | Contexts | `ExoContext.cs` | Conexão com o banco de dados (Entity Framework) |
-| Models | `Projeto.cs` | Atributos da entidade Projeto |
-| Repositories | `ProjetoRepository.cs` | Acesso aos dados (padrão Repository) |
-| Controllers | `ProjetosController.cs` | Recebe as requisições HTTP e devolve as respostas |
+| Models | `Projeto.cs`, `Usuario.cs` | Atributos das entidades Projeto e Usuário |
+| Repositories | `ProjetoRepository.cs`, `UsuarioRepository.cs` | Acesso aos dados (padrão Repository) |
+| Controllers | `ProjetosController.cs`, `UsuariosController.cs` | Recebem as requisições HTTP e devolvem as respostas |
 
 ## ▶️ Como executar
 
