@@ -1,19 +1,23 @@
 {
   "info": {
     "_postman_id": "6608cf61-b0b3-4644-b982-e620216affa5",
-    "name": "ExoApi - CRUD de Projetos e Usuários",
-    "description": "Testes das atividades 4 e 5 (Desenvolvimento de APIs - SENAI). Ajuste a variável base_url para o endereço que aparece no 'dotnet run'.",
+    "name": "ExoApi - Projetos, Usuários e Login (JWT)",
+    "description": "Testes das atividades 4, 5 e 6 (Desenvolvimento de APIs - SENAI). 1) Ajuste base_url para o endereço do 'dotnet run'. 2) Rode 'Login (POST)' e cole o token gerado na variável token. 3) As requisições marcadas com [token] usam Bearer Token.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "base_url",
       "value": "http://localhost:5038"
+    },
+    {
+      "key": "token",
+      "value": "COLE-AQUI-O-TOKEN-DO-LOGIN"
     }
   ],
   "item": [
     {
-      "name": "Projetos (atividade 4)",
+      "name": "Projetos",
       "item": [
         {
           "name": "1. Listar projetos (GET)",
@@ -82,7 +86,7 @@
           }
         },
         {
-          "name": "4. Atualizar projeto (PUT)",
+          "name": "4. Atualizar projeto (PUT) [token]",
           "request": {
             "method": "PUT",
             "header": [
@@ -110,11 +114,21 @@
                   "language": "json"
                 }
               }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
             }
           }
         },
         {
-          "name": "5. Deletar projeto (DELETE)",
+          "name": "5. Deletar projeto (DELETE) [token]",
           "request": {
             "method": "DELETE",
             "header": [],
@@ -127,6 +141,16 @@
                 "api",
                 "projetos",
                 "4"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
               ]
             }
           }
@@ -151,7 +175,7 @@
       ]
     },
     {
-      "name": "Usuários (atividade 5)",
+      "name": "Usuários",
       "item": [
         {
           "name": "1. Listar usuários (GET)",
@@ -171,7 +195,80 @@
           }
         },
         {
-          "name": "2. Cadastrar usuário (POST)",
+          "name": "2. Buscar usuário por id (GET)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "2"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login e Token - atividade 6 (rodar na ordem)",
+      "item": [
+        {
+          "name": "1. Atualizar usuário 2 SEM token (PUT) -> 401",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "2"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"email@sp.br\",\n    \"senha\": \"aaaaa1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "2. Deletar usuário 2 SEM token (DELETE) -> 401",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "2"
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Login (POST) -> gera o token",
           "request": {
             "method": "POST",
             "header": [
@@ -192,7 +289,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"email_tres@sp.br\",\n    \"senha\": \"1234\"\n}",
+              "raw": "{\n    \"email\": \"email@sp.br\",\n    \"senha\": \"1234\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -202,25 +299,7 @@
           }
         },
         {
-          "name": "3. Buscar usuário por id (GET)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/api/usuarios/3",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "usuarios",
-                "3"
-              ]
-            }
-          }
-        },
-        {
-          "name": "4. Atualizar usuário (PUT)",
+          "name": "4. Atualizar usuário 2 COM token (PUT) -> 204",
           "request": {
             "method": "PUT",
             "header": [
@@ -230,47 +309,84 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api/usuarios/3",
+              "raw": "{{base_url}}/api/usuarios/2",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "usuarios",
-                "3"
+                "2"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"email_quatro@sp.br\",\n    \"senha\": \"4321\"\n}",
+              "raw": "{\n    \"email\": \"email@sp.br\",\n    \"senha\": \"aaaaa1234\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
                 }
               }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
             }
           }
         },
         {
-          "name": "5. Deletar usuário (DELETE)",
+          "name": "5. Listar usuários (GET) -> usuário 2 alterado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            }
+          }
+        },
+        {
+          "name": "6. Deletar usuário 2 COM token (DELETE) -> 204",
           "request": {
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/usuarios/3",
+              "raw": "{{base_url}}/api/usuarios/2",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "usuarios",
-                "3"
+                "2"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
               ]
             }
           }
         },
         {
-          "name": "6. Listar após deletar (GET)",
+          "name": "7. Listar usuários (GET) -> sem o usuário 2",
           "request": {
             "method": "GET",
             "header": [],

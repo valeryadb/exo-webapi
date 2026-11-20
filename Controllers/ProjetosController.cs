@@ -47,6 +47,8 @@ namespace Exo.WebApi.Controllers
         }
 
         // PUT: api/projetos/4 -> atualiza um projeto (204 No Content, ou 404 se não existir)
+        // Somente usuários autenticados (com token) podem atualizar projetos.
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Projeto projeto)
         {
@@ -59,6 +61,8 @@ namespace Exo.WebApi.Controllers
         }
 
         // DELETE: api/projetos/4 -> remove um projeto (204 No Content, ou 404 se não existir)
+        // Somente usuários autenticados (com token) podem deletar projetos.
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
